@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>glacier-alarm-listener.qml</file>
+        <file>pages/MainPage.qml</file>
+    </qresource>
+</RCC>

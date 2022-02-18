@@ -1,0 +1,10 @@
+[Unit]
+After=ngfd.service pulseaudio.service
+Requires=dbus.socket
+Wants=ngfd.service pulseaudio.service
+
+[Service]
+Type=dbus
+BusName=com.nokia.voland
+ExecStart=/usr/bin/glacier-alarm-listener
+#ExecStopPost=/usr/bin/glacier-alarm-listener

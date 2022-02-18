@@ -1,0 +1,5 @@
+[D-BUS Service]
+Environment="QT_QPA_PLATFORM=wayland"
+Name=com.nokia.voland
+SystemdService=glacier-alarm-listener.service
+Exec=/bin/false
