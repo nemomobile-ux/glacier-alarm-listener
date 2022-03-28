@@ -49,7 +49,7 @@ Page {
     Row {
         id: buttonRow
         width: parent.width
-        height: Theme.itemHeightMedium
+        height: Theme.itemHeightLarge
         anchors.bottom: parent.bottom;
         spacing: 1
         Button {
