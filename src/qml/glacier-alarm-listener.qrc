@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>glacier-alarm-listener.qml</file>
         <file>pages/MainPage.qml</file>
+        <file>components/GenericDialog.qml</file>
+        <file>components/ClockDelegate.qml</file>
+        <file>components/CalendarDelegate.qml</file>
     </qresource>
 </RCC>
