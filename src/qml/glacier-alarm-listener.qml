@@ -18,12 +18,17 @@ ApplicationWindow {
         property var activeClockDialogs: []
 
         onActiveDialogsChanged: {
-//            var wakeups = countDialogsIfType(activeDialogs, Alarm.WakeUp)
-//            var non_wakeups = (activeDialogs.length - wakeups);
-//            console.log("num of events" + non_wakeups)
-//            if (non_wakeups <= 0) {
-////                app.visible = false;
-//            }
+            if (activeDialogs.length === 0) {
+                console.log("All dialogs was dismissed or snozed")
+                Qt.quit();
+            }
+
+            var wakeups = countDialogsIfType(activeDialogs, Alarm.WakeUp)
+            var non_wakeups = (activeDialogs.length - wakeups);
+            console.log("Number of non wakeup events: " + non_wakeups)
+            if (non_wakeups <= 0) {
+                app.visible = false;
+            }
         }
 
         onError: {
