@@ -24,7 +24,7 @@ Page {
 
     onFeedbackPlayingChanged: {
         if (feedbackPlaying) {
-//            feedback.play();
+            feedback.play();
         } else {
             feedback.stop();
         }
@@ -42,7 +42,10 @@ Page {
 
 
     ListView {
-        anchors.fill: parent
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: buttonRow.top
         model: alarmHandler.activeDialogs.length
 
         delegate: Component {
@@ -52,6 +55,39 @@ Page {
                 property var dialog: alarmHandler.activeDialogs[index]
                 width: parent.width
 
+            }
+        }
+    }
+
+
+    Row {
+        id: buttonRow
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        height: Theme.itemHeightLarge
+        spacing: 1
+        Button {
+            width: parent.width/2
+            height: parent.height
+            primary: true
+            text: qsTr("Dismiss All")
+            onClicked: {
+                while (alarmHandler.activeDialogs.length > 0) {
+                    alarmHandler.activeDialogs[0].dismiss()
+                }
+
+            }
+        }
+        Button {
+            width: parent.width/2
+            height: parent.height
+            text: qsTr("Snooze All")
+            onClicked: {
+                while (alarmHandler.activeDialogs.length > 0) {
+                    alarmHandler.activeDialogs[0].snooze()
+                }
             }
         }
     }
@@ -71,9 +107,65 @@ Page {
         }
     }
 
+    function eventTypeToNGFEvent(type) {
+        switch(type) {
+        case Alarm.Clock:
+            return "clock"
+        case Alarm.Calendar:
+            return "calendar"
+        case Alarm.Countdown:
+            // FIXME
+        case Alarm.Reminder:
+            // FIXME
+        default:
+            return "default"
+        }
+    }
+
+    /**
+      * defines priorities of events
+      * alarmclock > calendar > other
+      */
+
+    function chooseEventToPlay(dialogs) {
+        var max_event = Alarm.WakeUp
+
+        for (var i = 0; i < dialogs.length; i++) {
+            var current_type = dialogs[i].type
+            switch (current_type) {
+            case Alarm.Clock:
+                max_event = current_type
+                break;
+            case Alarm.Calendar:
+                if (max_event !== Alarm.Clock) {
+                    max_event = current_type
+                }
+                break;
+            case Alarm.Countdown:
+                if (max_event !== Alarm.Clock) {
+                    max_event = current_type
+                }
+                break;
+            case Alarm.Reminder:
+                if (max_event !== Alarm.Clock) {
+                    max_event = current_type
+                }
+                break;
+            default:
+                break
+
+            }
+        }
+        return max_event
+    }
+
     NonGraphicalFeedback {
         id: feedback
-        event: "clock"
+        event: eventTypeToNGFEvent(chooseEventToPlay(alarmHandler.activeDialogs))
+
+        onEventChanged: {
+            console.log("event " + event)
+        }
     }
 
 }
