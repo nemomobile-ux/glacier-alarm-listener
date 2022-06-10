@@ -8,7 +8,7 @@ ListViewItemWithActions {
     description: JSON.stringify(dialog)
     iconVisible: false
     onClicked: {
-        console.log(JSON.stringify(dialog))
+        console.log(JSON.stringify(dialog, null, 2))
         dialog.dismiss()
     }
 }

@@ -12,7 +12,7 @@ Page {
 
     id: mainPage
 
-    property bool feedbackPlaying: app.visible && (countDialogsIfType(alarmHandler.activeDialogs, Alarm.Clock) > 0);
+    property bool feedbackPlaying: app.visible && (alarmHandler.activeDialogs.length > 0);
 
     headerTools: HeaderToolsLayout {
         id: tools
@@ -23,6 +23,10 @@ Page {
     }
 
     onFeedbackPlayingChanged: {
+        feedback.stop();
+        if (feedback.event === "") {
+            return;
+        }
         if (feedbackPlaying) {
             feedback.play();
         } else {
@@ -99,9 +103,9 @@ Page {
         case Alarm.Calendar:
             return Qt.resolvedUrl("../components/CalendarDelegate.qml")
         case Alarm.Countdown:
-            // FIXME
+            return Qt.resolvedUrl("../components/CountdownDelegate.qml")
         case Alarm.Reminder:
-            // FIXME
+            return Qt.resolvedUrl("../components/ReminderDelegate.qml")
         default:
             return Qt.resolvedUrl("../components/GenericDialog.qml");
         }
@@ -114,11 +118,11 @@ Page {
         case Alarm.Calendar:
             return "calendar"
         case Alarm.Countdown:
-            // FIXME
+            return "clock"
         case Alarm.Reminder:
-            // FIXME
+            return "calendar"
         default:
-            return "default"
+            return ""
         }
     }
 
@@ -161,8 +165,8 @@ Page {
 
     NonGraphicalFeedback {
         id: feedback
-        event: eventTypeToNGFEvent(chooseEventToPlay(alarmHandler.activeDialogs))
 
+        event: eventTypeToNGFEvent(chooseEventToPlay(alarmHandler.activeDialogs))
         onEventChanged: {
             console.log("event " + event)
         }
