@@ -27,12 +27,16 @@ ApplicationWindow {
             var non_wakeups = (activeDialogs.length - wakeups);
             console.log("Number of non wakeup events: " + non_wakeups)
             if (non_wakeups <= 0) {
-                app.visible = false;
+
+                console.log("Dismiss wakeUp events")
+                while (activeDialogs.length > 0) {
+                    activeDialogs[0].dismiss()
+                }
             }
         }
 
         onError: {
-            console.log("AlarmHandler error: ", message)
+            console.log("AlarmHandler error: " + message)
         }
     }
 

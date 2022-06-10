@@ -4,6 +4,8 @@
         <file>pages/MainPage.qml</file>
         <file>components/GenericDialog.qml</file>
         <file>components/ClockDelegate.qml</file>
+        <file>components/CountdownDelegate.qml</file>
+        <file>components/ReminderDelegate.qml</file>
         <file>components/CalendarDelegate.qml</file>
         <file>components/ListViewItemForEvent.qml</file>
     </qresource>
