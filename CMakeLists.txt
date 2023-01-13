@@ -35,4 +35,4 @@ install(FILES glacier-alarm-listener.service
         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/systemd/user/)
 
 install(FILES voland.conf
-        DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/dbus-1/system.d/)
+        DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/dbus-1/system.d/)
