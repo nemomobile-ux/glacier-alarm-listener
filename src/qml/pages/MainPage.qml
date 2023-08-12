@@ -1,10 +1,8 @@
-import QtQuick 2.6
+import QtQuick
 
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Nemo 1.0
-
-import Nemo.Alarms 1.0
-import Nemo.Ngf 1.0
+import Nemo.Controls
+import Nemo.Alarms
+import Nemo.Ngf
 import "../components"
 
 
