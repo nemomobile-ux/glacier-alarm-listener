@@ -1,5 +1,6 @@
 import QtQuick
 
+import Nemo
 import Nemo.Controls
 import Nemo.Alarms
 import Nemo.Ngf
